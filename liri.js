@@ -21,30 +21,38 @@ switch (command) {
         client.get('statuses/user_timeline', { screen_name: 'MrPotat58309442' }, twitterLog);
         break;
     case 'spotify-this-song':
-        console.log('UNDER CONSTRUCTION');
-        break;
+        spotifyThis(input);
+    break;
     case 'movie-this':
         console.log('UNDER CONSTRUCTION');
         break;
     default:
         console.log('DEFAULT ACTION');
-        // console.log(`Sorry, unable to process: '${command}'`);
+    // console.log(`Sorry, unable to process: '${command}'`);
 }
 
 // SANDBOX:
 // *********** //
 
-spotify
-  .search({ type: 'track', query: 'All the Small Things' })
-  .then(function(response) {
-    console.log(response);
-  })
-  .catch(function(err) {
-    console.log('ERROR');
-  });
+function spotifyThis(trackName) {
+    
+    spotify.search({ type: 'track', query: trackName, limit: 1 }, function (err, data) {
+        if (err) {
+            return console.log('Error occurred: ' + err);
+        }
+        
+        console.log(`ARTIST NAME:\n"${data.tracks.items[0].artists[0].name}" `);
+        console.log(`SONG NAME:\n"${data.tracks.items[0].name}"`);
+        console.log(`ALBUM:\n"${data.tracks.items[0].album.name}"`);
+        console.log(`PREVIEW LINK:\n"${data.tracks.items[0].external_urls.spotify}"`)
+        
+    });
+}
 
-// ALL FUNCTIONS:
-// ************* //
+
+
+// ALL FUNCTIONS: //
+// ************** //
 
 function twitterLog(error, tweets, response) {
     if (!error) {
