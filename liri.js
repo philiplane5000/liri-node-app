@@ -2,6 +2,7 @@ const result  = require("dotenv").config();
 const keys    = require("./keys");
 const Twitter = require('twitter');
 const Spotify = require('node-spotify-api');
+const request = require('request');
 
 //AUTHENTICATE USER:
 // let spot = new Spotify(keys.spotify);
@@ -25,7 +26,7 @@ switch (command) {
         spotifyThis(input);
         break;
     case 'movie-this':
-        console.log('UNDER CONSTRUCTION');
+        requestMovieTitle(input);
         break;
     default:
         console.log(`Sorry, unable to process: '${command}'`);
@@ -33,7 +34,6 @@ switch (command) {
 
 // SANDBOX:
 // *********** //
-
 
 // ALL FUNCTIONS: //
 // ************** //
@@ -65,7 +65,6 @@ function spotifyThis(trackName) {
         if (err) {
             return console.log('Error occurred: ' + err);
         }
-
         console.log(`ARTIST NAME:\n"${data.tracks.items[0].artists[0].name}" `);
         console.log(`SONG NAME:\n"${data.tracks.items[0].name}"`);
         console.log(`ALBUM:\n"${data.tracks.items[0].album.name}"`);
@@ -74,4 +73,31 @@ function spotifyThis(trackName) {
     });
 }
 
+//MOVIE-THIS REQUEST FUNCTION:
+function requestMovieTitle(movieTitle) {
+    let baseURL = 'http://www.omdbapi.com/?apikey=trilogy&t='
+    let queryURL = baseURL.concat(movieTitle);
+    console.log(queryURL);
 
+    //REQUEST QUERY USING QUERYURL:
+    request(queryURL, function (error, response, body) {
+        if (!(error)) {
+            if (body.includes('Movie not found!')) {
+                console.log('MOVIE NOT FOUND, PLEASE TRY ANOTHER TITLE');
+                return;
+            }
+            let data = JSON.parse(body);
+            // console.log(data)
+            console.log(`TITLE:\n${data.Title}`);
+            console.log(`RELEASE YEAR:\n${data.Year}`);
+            console.log(`IMDB RATING:\n${data.imdbRating}`);
+            console.log(`ROTTEN TOMATOES RATING:\n${data.Ratings[1].Value}`)
+            console.log(`RELEASED IN: (COUNTRY)\n${data.Country}`)
+            console.log(`LANGUAGE:\n${data.Language}`)
+            console.log(`PLOT:\n${data.Plot}`)
+            console.log(`ACTORS:\n${data.Actors}`)
+            return
+        }
+        console.log(error)
+    });
+}
