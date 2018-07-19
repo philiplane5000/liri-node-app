@@ -20,7 +20,7 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
     TWITTER_ACCESS_TOKEN_SECRET=paste-here
 
     ```
-* `RUN`:
+* `RUN` any of the following commands:
 
 1. `node liri.js my-tweets`
 
