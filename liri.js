@@ -17,11 +17,13 @@ let input = process.argv[3];
 //HARD-CODED (MAYBE LATER USE THE INQUIRER THING TO GATHER AND SET USER SCREEN NAME?)
 let twitterScreenName = 'MrPotat58309442';
 
-// MAIN SWITCH STATEMENT (SWITCH DETERMINED BY COMMAND + INPUT):    //
-// ************************* //
-
 mainSwitch(command, input)
 
+// ALL FUNCTIONS: //
+// ************** //
+
+// MAIN SWITCH STATEMENT (SWITCH DETERMINED BY COMMAND + INPUT):    //
+// ************************* //
 function mainSwitch(command, input) {
 
     switch (command) {
@@ -55,7 +57,7 @@ function mainSwitch(command, input) {
 
 //TWITTER FUNCTIONS:
 function twitterGet(screenName, callback) {
-    
+
     client.get('statuses/user_timeline', { screen_name: screenName }, callback);
 }
 
@@ -123,21 +125,34 @@ function requestMovieTitle(movieTitle) {
     });
 }
 
+//DO WHAT IT SAYS USING A FILE-NAME
 function doWhatItSays(fileName) {
 
     fs.readFile(fileName, 'utf-8', function (err, data) {
         if (!err) {
-            let fileString = JSON.stringify(data);
-            let dataArr = fileString.split(',');
-            let commandAlt = dataArr[0].trim().slice(1);
-            let sliceOne = dataArr[1].trim().slice(2);
-            let sliceTwo = sliceOne.slice(0, sliceOne.length - 3);
-            let inputAlt = sliceTwo;
-            console.log(`${fileName}:`)
-            console.log(`COMMAND: ${commandAlt}`);
-            console.log(`INPUT: ${inputAlt}`);
 
-            mainSwitch(commandAlt, inputAlt);
+            let fileString = JSON.stringify(data);
+
+            if (fileString.includes(',')) {
+
+                let dataArr = fileString.split(',');
+                let commandAlt = dataArr[0].trim().slice(1);
+                let sliceOne = dataArr[1].trim().slice(2);
+                let sliceTwo = sliceOne.slice(0, sliceOne.length - 3);
+                let inputAlt = sliceTwo;
+                console.log(`${fileName}:`)
+                console.log(`COMMAND: ${commandAlt}`);
+                console.log(`INPUT: ${inputAlt}`);
+
+                mainSwitch(commandAlt, inputAlt);
+                return
+            }
+
+            let commandWithQuotations = fileString.trim()
+            let sliceOne = commandWithQuotations.slice(1);
+            let sliceTwo = sliceOne.slice(0, sliceOne.length - 1);
+            let commandAlt = sliceTwo;
+            mainSwitch(commandAlt)
 
         }
 
