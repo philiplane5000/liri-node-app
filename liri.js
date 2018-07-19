@@ -1,170 +1,154 @@
-const result = require("dotenv").config();
-const keys = require("./keys");
+const result = require('dotenv').config();
+const keys = require('./keys');
 const Twitter = require('twitter');
 const Spotify = require('node-spotify-api');
 const request = require('request');
 const fs = require('fs');
 
-//AUTHENTICATE USER:
-// let spot = new Spotify(keys.spotify);
 let client = new Twitter(keys.twitter);
 let spotify = new Spotify(keys.spotify);
 
-//USER INPUT:
-let command = process.argv[2];
-let input = process.argv[3];
+// ****LIRI OBJ OF ALL FUNCTIONS:**** //
+// ********************************* //
 
-//PREVENT APPEND LOG OF 'UNDEFINED' IN THE CASE OF NO INPUT E.G. 'MY-TWEETS':
-(input === undefined) ? appendLog(command) : appendLog(command, input)
+module.exports.liri = {
 
-//HARD-CODED (MAYBE LATER USE THE INQUIRER TO GATHER AND SET USER SCREEN NAME?)
-let twitterScreenName = 'MrPotat58309442';
+    twitterScreenName: 'MrPotat58309442',
 
-mainSwitch(command, input)
+    connected: function () {
+        console.log('CONNECTED TO LIRI');
+    },
 
-// ****ALL FUNCTIONS:**** //
-// ********************** //
-
-// MAIN SWITCH STATEMENT: (SWITCH DETERMINED BY COMMAND + INPUT)
-function mainSwitch(command, input) {
-
-    switch (command) {
-        case 'my-tweets':
-            twitterGet(twitterScreenName, twitterLog);
-            break;
-        case 'spotify-this-song':
-            spotifyThis(input);
-            break;
-        case 'movie-this':
-            requestMovieTitle(input);
-            break;
-        case 'do-what-it-says':
-            doWhatItSays('./random.txt');
-            break;
-        default:
-            appendLog(`SORRY, UNABLE TO PROCESS: '${command}'`);
-    }
-
-}
-
-//TWITTER GET & TWITTERLOG-CALLBACK:
-function twitterGet(screenName, callback) {
-
-    client.get('statuses/user_timeline', { screen_name: screenName }, callback);
-}
-
-function twitterLog(err, tweets, res) {
-
-    if (!err) {
-        tweets.forEach(function (tweet) {
-            appendLog(`${tweet.text}\nSHARED ON: ${tweet.created_at}`);
-        })
-
-    } else {
-        throw err
-    }
-
-}
-
-//SPOTIFY SEARCH BY TRACK:
-function spotifyThis(trackName) {
-
-    if(trackName === 'spotify-this-song') {
-        trackName = "inspector norse";
-    }
-
-    spotify.search({ type: 'track', query: trackName, limit: 1 }, function (err, data) {
-        if (err) {
-            appendLog('Error occurred: ' + err);
-            return
+    mainSwitch: function (command, input) {
+        switch (command) {
+            case 'my-tweets':
+                exports.liri.twitterGet(exports.liri.twitterScreenName, exports.liri.twitterLog);
+                break;
+            case 'spotify-this-song':
+                exports.liri.spotifyThis(input);
+                break;
+            case 'movie-this':
+                exports.liri.requestMovieTitle(input);
+                break;
+            case 'do-what-it-says':
+                exports.liri.doWhatItSays('./random.txt');
+                break;
+            default:
+            exports.liri.appendLog(`SORRY, UNABLE TO PROCESS: '${command}'`);
         }
-        appendLog(`ARTIST NAME:\n"${data.tracks.items[0].artists[0].name}" `);
-        appendLog(`SONG NAME:\n"${data.tracks.items[0].name}"`);
-        appendLog(`ALBUM:\n"${data.tracks.items[0].album.name}"`);
-        appendLog(`PREVIEW LINK:\n"${data.tracks.items[0].external_urls.spotify}"`)
+    },
+    twitterGet: function (screenName, callback) {
+        client.get('statuses/user_timeline', { screen_name: screenName }, callback);
 
-    });
-}
+    },
+    twitterLog: function (err, tweets, res) {
 
-//MOVIE-THIS REQUEST FUNCTION:
-function requestMovieTitle(movieTitle) {
-
-    let baseURL = 'http://www.omdbapi.com/?apikey=trilogy&t='
-    let queryURL = baseURL.concat(movieTitle);
-    appendLog(queryURL);
-
-    //REQUEST QUERY USING QUERYURL:
-    request(queryURL, function (err, res, body) {
-
-        //NEED TO INCLUDE HERE OR ABOVE, 'MR.NOBODY' AS SEARCH PARAM IF USER DOESN'T SUPPLY MOVIE NAME(!) i.e. NO INPUT or INPUT = undefined
-
-        if (!(err)) {
-            if (body.includes('Movie not found!')) {
-                appendLog('MOVIE NOT FOUND, PLEASE TRY ANOTHER TITLE');
-                return;
-            }
-            let data = JSON.parse(body);
-            // appendLog(data)
-            appendLog(`TITLE:\n${data.Title}`);
-            appendLog(`RELEASE YEAR:\n${data.Year}`);
-            appendLog(`IMDB RATING:\n${data.imdbRating}`);
-            appendLog(`ROTTEN TOMATOES RATING:\n${data.Ratings[1].Value}`)
-            appendLog(`RELEASED IN: (COUNTRY)\n${data.Country}`)
-            appendLog(`LANGUAGE:\n${data.Language}`)
-            appendLog(`PLOT:\n${data.Plot}`)
-            appendLog(`ACTORS:\n${data.Actors}`)
-            return
-        }
-        appendLog(err)
-    });
-}
-
-//DO WHAT IT SAYS USING A FILE-NAME
-function doWhatItSays(fileName) {
-
-    fs.readFile(fileName, 'utf-8', function (err, data) {
         if (!err) {
+            tweets.forEach(function (tweet) {
+                exports.liri.appendLog(`${tweet.text}\nSHARED ON: ${tweet.created_at}`);
+            })
 
-            let fileString = JSON.stringify(data);
+        } else {
+            throw err
+        }
 
-            if (fileString.includes(',')) {
+    },
+    spotifyThis: function (trackName) {
 
-                let dataArr = fileString.split(',');
-                let commandAlt = dataArr[0].trim().slice(1);
-                let sliceOne = dataArr[1].trim().slice(2);
-                let sliceTwo = sliceOne.slice(0, sliceOne.length - 3);
-                let inputAlt = sliceTwo;
-                appendLog(`${fileName}:`)
-                appendLog(`COMMAND: ${commandAlt}`);
-                appendLog(`INPUT: ${inputAlt}`);
+        if (trackName === null || trackName === undefined) {
+            trackName = "inspector norse";
+        }
 
-                mainSwitch(commandAlt, inputAlt);
+        spotify.search({ type: 'track', query: trackName, limit: 1 }, function (err, data) {
+            if (err) {
+                exports.liri.appendLog('Error occurred: ' + err);
                 return
             }
+            exports.liri.appendLog(`ARTIST NAME:\n"${data.tracks.items[0].artists[0].name}" `);
+            exports.liri.appendLog(`SONG NAME:\n"${data.tracks.items[0].name}"`);
+            exports.liri.appendLog(`ALBUM:\n"${data.tracks.items[0].album.name}"`);
+            exports.liri.appendLog(`PREVIEW LINK:\n"${data.tracks.items[0].external_urls.spotify}"`)
 
-            let commandWithQuotations = fileString.trim()
-            let sliceOne = commandWithQuotations.slice(1);
-            let sliceTwo = sliceOne.slice(0, sliceOne.length - 1);
-            let commandAlt = sliceTwo;
-            mainSwitch(commandAlt)
+        });
+    },
+    requestMovieTitle: function (movieTitle) {
+
+        let baseURL = 'http://www.omdbapi.com/?apikey=trilogy&t='
+        let queryURL = baseURL.concat(movieTitle);
+        exports.liri.appendLog(queryURL);
+
+        //REQUEST QUERY USING QUERYURL:
+        request(queryURL, function (err, res, body) {
+
+            //NEED TO INCLUDE HERE OR ABOVE, 'MR.NOBODY' AS SEARCH PARAM IF USER DOESN'T SUPPLY MOVIE NAME(!) i.e. NO INPUT or INPUT = undefined
+
+            if (!(err)) {
+                if (body.includes('Movie not found!')) {
+                    exports.liri.appendLog('MOVIE NOT FOUND, PLEASE TRY ANOTHER TITLE');
+                    return;
+                }
+                let data = JSON.parse(body);
+                // appendLog(data)
+                exports.liri.appendLog(`TITLE:\n${data.Title}`);
+                exports.liri.appendLog(`RELEASE YEAR:\n${data.Year}`);
+                exports.liri.appendLog(`IMDB RATING:\n${data.imdbRating}`);
+                exports.liri.appendLog(`ROTTEN TOMATOES RATING:\n${data.Ratings[1].Value}`)
+                exports.liri.appendLog(`RELEASED IN: (COUNTRY)\n${data.Country}`)
+                exports.liri.appendLog(`LANGUAGE:\n${data.Language}`)
+                exports.liri.appendLog(`PLOT:\n${data.Plot}`)
+                exports.liri.appendLog(`ACTORS:\n${data.Actors}`)
+                return
+            }
+            exports.liri.appendLog(err)
+        });
+    },
+
+    doWhatItSays: function (fileName) {
+
+        fs.readFile(fileName, 'utf-8', function (err, data) {
+            if (!err) {
+
+                let fileString = JSON.stringify(data);
+
+                if (fileString.includes(',')) {
+
+                    let dataArr = fileString.split(',');
+                    let commandAlt = dataArr[0].trim().slice(1);
+                    let sliceOne = dataArr[1].trim().slice(2);
+                    let sliceTwo = sliceOne.slice(0, sliceOne.length - 3);
+                    let inputAlt = sliceTwo;
+                    exports.liri.appendLog(`${fileName}:`)
+                    exports.liri.appendLog(`COMMAND: ${commandAlt}`);
+                    exports.liri.appendLog(`INPUT: ${inputAlt}`);
+
+                    exports.liri.mainSwitch(commandAlt, inputAlt);
+                    return
+                }
+
+                let commandWithQuotations = fileString.trim()
+                let sliceOne = commandWithQuotations.slice(1);
+                let sliceTwo = sliceOne.slice(0, sliceOne.length - 1);
+                let commandAlt = sliceTwo;
+                exports.liri.mainSwitch(commandAlt)
+
+            }
+
+        });
+    },
+    appendLog: function (...inputs) {
+
+        for (input of inputs) {
+            //APPEND TO LOG:
+            fs.appendFile('./log.txt', '\n' + input, function (err) {
+                if (err) throw err;
+                // console.log('LOGGED');
+            })
+            //LOG TO CONSOLE:
+            console.log(input);
 
         }
 
-    });
-}
-
-
-//APPEND TO 'LOG.TXT' + CONSOLE.LOG(INPUTS):
-function appendLog(...inputs) {
-
-    for (input of inputs) {
-        //APPEND TO LOG:
-        fs.appendFile('./log.txt', '\n' + input, function (err) {
-            if (err) throw err;
-            // console.log('LOGGED');
-        })
-        //LOG TO CONSOLE:
-        console.log(input);
-
     }
-}
+
+
+} /*end liri obj*/
