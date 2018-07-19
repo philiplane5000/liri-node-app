@@ -4,7 +4,7 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
 ## HOW-T0:
 * `CLONE` this repository to your local machine
 * `RUN` 'npm install' in `CLI` to install packages
-* `WRITE` a .env file replacing the following with your unique spotify + twitter keys:
+* `WRITE` an .env file replacing the following with your unique spotify + twitter keys:
 
     ```
     # Spotify API keys
@@ -24,7 +24,7 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
 
 1. `node liri.js my-tweets`
 
-   * This will show your last 20 tweets and when they were created at in your terminal/bash window.
+   * This will show your last 20 tweets and when they were created in your terminal/bash window.
 
 2. `node liri.js spotify-this-song '<song name here>'`
 
@@ -38,7 +38,7 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
      
      * The album that the song is from
 
-   * If no song is provided then your program will default to "The Sign" by Ace of Base.
+   * If no song is provided then your program will default to "Inspector Norse" by Todd Terje.
 
 3. `node liri.js movie-this '<movie name here>'`
 
@@ -56,4 +56,4 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
      ```
 4. `node liri.js do-what-it-says`
 
-* Using the `fs` Node package, LIRI will take the text inside of file `random.txt` using contents to call one of LIRI's commands.
+* Using the `fs` Node package, LIRI will take the text inside of local file `random.txt` using it's contents to call one of LIRI's commands.
