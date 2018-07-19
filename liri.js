@@ -1,56 +1,53 @@
-const result  = require("dotenv").config();
-const keys    = require("./keys");
+const result = require("dotenv").config();
+const keys = require("./keys");
 const Twitter = require('twitter');
 const Spotify = require('node-spotify-api');
 const request = require('request');
-const fs      = require('fs');
+const fs = require('fs');
 
 //AUTHENTICATE USER:
 // let spot = new Spotify(keys.spotify);
-let client  = new Twitter(keys.twitter);
+let client = new Twitter(keys.twitter);
 let spotify = new Spotify(keys.spotify);
 
 //USER INPUT:
 let command = process.argv[2];
-let input   = process.argv[3];
+let input = process.argv[3];
 
 //HARD-CODED (MAYBE LATER USE THE INQUIRER THING TO GATHER AND SET USER SCREEN NAME?)
 let twitterScreenName = 'MrPotat58309442';
 
-// MAIN SWITCH STATEMENT (SWITCH DETERMINED BY COMMAND INPUT):    //
+// MAIN SWITCH STATEMENT (SWITCH DETERMINED BY COMMAND + INPUT):    //
 // ************************* //
 
-switch (command) {
-    case 'my-tweets':
-        twitterGet(twitterScreenName, twitterLog);
-        break;
-    case 'spotify-this-song':
-        spotifyThis(input);
-        break;
-    case 'movie-this':
-        requestMovieTitle(input);
-        break;
-    default:
-        console.log(`Sorry, unable to process: '${command}'`);
+mainSwitch(command, input)
+
+function mainSwitch(command, input) {
+
+    switch (command) {
+        case 'my-tweets':
+            twitterGet(twitterScreenName, twitterLog);
+            break;
+        case 'spotify-this-song':
+            spotifyThis(input);
+            break;
+        case 'movie-this':
+            requestMovieTitle(input);
+            break;
+        case 'do-what-it-says':
+            doWhatItSays('./random.txt');
+            break;
+        default:
+            console.log(`Sorry, unable to process: '${command}'`);
+    }
+
 }
+
 
 // SANDBOX:
 // *********** //
 
-fs.readFile('./random.txt', 'utf-8', function(err, data) {
-    if(!err) {
-        let fileString = JSON.stringify(data);
-        let dataArr = fileString.split(',');
 
-        let commandAlt = dataArr[0].trim().slice(1);
-        let sliceOne = dataArr[1].trim().slice(2);
-        let sliceTwo = sliceOne.slice(0, sliceOne.length -3);
-        let input = sliceTwo;
-        console.log('command: ' + commandAlt);
-        console.log('input: ' + input);
-    }
-
-})
 
 
 // ALL FUNCTIONS: //
@@ -58,10 +55,12 @@ fs.readFile('./random.txt', 'utf-8', function(err, data) {
 
 //TWITTER FUNCTIONS:
 function twitterGet(screenName, callback) {
+    
     client.get('statuses/user_timeline', { screen_name: screenName }, callback);
 }
 
 function twitterLog(error, tweets, response) {
+
     if (!error) {
         tweets.forEach(function (tweet) {
             console.log('******************');
@@ -76,7 +75,7 @@ function twitterLog(error, tweets, response) {
 
 }
 
-//SPOTIFY FUNCTIONS:
+//SPOTIFY SEARCH BY TRACK:
 function spotifyThis(trackName) {
 
     spotify.search({ type: 'track', query: trackName, limit: 1 }, function (err, data) {
@@ -93,6 +92,7 @@ function spotifyThis(trackName) {
 
 //MOVIE-THIS REQUEST FUNCTION:
 function requestMovieTitle(movieTitle) {
+
     let baseURL = 'http://www.omdbapi.com/?apikey=trilogy&t='
     let queryURL = baseURL.concat(movieTitle);
     console.log(queryURL);
@@ -120,5 +120,26 @@ function requestMovieTitle(movieTitle) {
             return
         }
         console.log(error)
+    });
+}
+
+function doWhatItSays(fileName) {
+
+    fs.readFile(fileName, 'utf-8', function (err, data) {
+        if (!err) {
+            let fileString = JSON.stringify(data);
+            let dataArr = fileString.split(',');
+            let commandAlt = dataArr[0].trim().slice(1);
+            let sliceOne = dataArr[1].trim().slice(2);
+            let sliceTwo = sliceOne.slice(0, sliceOne.length - 3);
+            let inputAlt = sliceTwo;
+            console.log(`${fileName}:`)
+            console.log(`COMMAND: ${commandAlt}`);
+            console.log(`INPUT: ${inputAlt}`);
+
+            mainSwitch(commandAlt, inputAlt);
+
+        }
+
     });
 }
