@@ -22,11 +22,11 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
     ```
 * `RUN` any of the following commands:
 
-1. `node liri.js my-tweets`
+1. `node main.js my-tweets`
 
    * This will show your last 20 tweets and when they were created in your terminal/bash window.
 
-2. `node liri.js spotify-this-song '<song name here>'`
+2. `node main.js spotify-this-song '<song name here>'`
 
    * This will show the following information about the song in your terminal/bash window
      
@@ -40,7 +40,7 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
 
    * If no song is provided then your program will default to "Inspector Norse" by Todd Terje.
 
-3. `node liri.js movie-this '<movie name here>'`
+3. `node main.js movie-this '<movie name here>'`
 
    * This will output the following information to your terminal/bash window:
 
@@ -54,6 +54,6 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
        * Plot of the movie.
        * Actors in the movie.
      ```
-4. `node liri.js do-what-it-says`
+4. `node main.js do-what-it-says`
 
 * Using the `fs` Node package, LIRI will take the text inside of local file `random.txt` using it's contents to call one of LIRI's commands.
