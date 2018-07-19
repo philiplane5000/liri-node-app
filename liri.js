@@ -3,6 +3,7 @@ const keys    = require("./keys");
 const Twitter = require('twitter');
 const Spotify = require('node-spotify-api');
 const request = require('request');
+const fs      = require('fs');
 
 //AUTHENTICATE USER:
 // let spot = new Spotify(keys.spotify);
@@ -18,6 +19,7 @@ let twitterScreenName = 'MrPotat58309442';
 
 // MAIN SWITCH STATEMENT (SWITCH DETERMINED BY COMMAND INPUT):    //
 // ************************* //
+
 switch (command) {
     case 'my-tweets':
         twitterGet(twitterScreenName, twitterLog);
@@ -34,6 +36,22 @@ switch (command) {
 
 // SANDBOX:
 // *********** //
+
+fs.readFile('./random.txt', 'utf-8', function(err, data) {
+    if(!err) {
+        let fileString = JSON.stringify(data);
+        let dataArr = fileString.split(',');
+
+        let commandAlt = dataArr[0].trim().slice(1);
+        let sliceOne = dataArr[1].trim().slice(2);
+        let sliceTwo = sliceOne.slice(0, sliceOne.length -3);
+        let input = sliceTwo;
+        console.log('command: ' + commandAlt);
+        console.log('input: ' + input);
+    }
+
+})
+
 
 // ALL FUNCTIONS: //
 // ************** //
@@ -81,6 +99,9 @@ function requestMovieTitle(movieTitle) {
 
     //REQUEST QUERY USING QUERYURL:
     request(queryURL, function (error, response, body) {
+
+        //NEED TO INCLUDE HERE OR ABOVE, 'MR.NOBODY' AS SEARCH PARAM IF USER DOESN'T SUPPLY MOVIE NAME(!) i.e. NO INPUT or INPUT = undefined
+
         if (!(error)) {
             if (body.includes('Movie not found!')) {
                 console.log('MOVIE NOT FOUND, PLEASE TRY ANOTHER TITLE');
