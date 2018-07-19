@@ -25,21 +25,6 @@ mainSwitch(command, input)
 // ****ALL FUNCTIONS:**** //
 // ********************** //
 
-//APPEND TO 'LOG.TXT' + CONSOLE.LOG(INPUTS):
-function appendLog(...inputs) {
-
-    for (input of inputs) {
-        //APPEND TO LOG:
-        fs.appendFile('./log.txt', '\n' + input, function (err) {
-            if (err) throw err;
-            // console.log('LOGGED');
-        })
-        //LOG TO CONSOLE:
-        console.log(input);
-
-    }
-}
-
 // MAIN SWITCH STATEMENT: (SWITCH DETERMINED BY COMMAND + INPUT)
 function mainSwitch(command, input) {
 
@@ -57,7 +42,7 @@ function mainSwitch(command, input) {
             doWhatItSays('./random.txt');
             break;
         default:
-            console.log(`Sorry, unable to process: '${command}'`);
+            appendLog(`SORRY, UNABLE TO PROCESS: '${command}'`);
     }
 
 }
@@ -84,9 +69,14 @@ function twitterLog(err, tweets, res) {
 //SPOTIFY SEARCH BY TRACK:
 function spotifyThis(trackName) {
 
+    if(trackName === 'spotify-this-song') {
+        trackName = "inspector norse";
+    }
+
     spotify.search({ type: 'track', query: trackName, limit: 1 }, function (err, data) {
         if (err) {
-            return console.log('Error occurred: ' + err);
+            appendLog('Error occurred: ' + err);
+            return
         }
         appendLog(`ARTIST NAME:\n"${data.tracks.items[0].artists[0].name}" `);
         appendLog(`SONG NAME:\n"${data.tracks.items[0].name}"`);
@@ -161,4 +151,20 @@ function doWhatItSays(fileName) {
         }
 
     });
+}
+
+
+//APPEND TO 'LOG.TXT' + CONSOLE.LOG(INPUTS):
+function appendLog(...inputs) {
+
+    for (input of inputs) {
+        //APPEND TO LOG:
+        fs.appendFile('./log.txt', '\n' + input, function (err) {
+            if (err) throw err;
+            // console.log('LOGGED');
+        })
+        //LOG TO CONSOLE:
+        console.log(input);
+
+    }
 }

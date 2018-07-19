@@ -1,9 +1,9 @@
-# liri-node-app
+# LIRI-NODE-APP
 LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and Recognition Interface, LIRI is a _Language_ Interpretation and Recognition Interface. LIRI is a command line node app that takes in parameters and returns relevant data.
 
 ## HOW-T0:
 * `CLONE` this repository to your local machine
-* `RUN` 'npm install' in `CLI` to install packages
+* `RUN` 'npm install' in your `CLI` to install packages
 * `WRITE` an .env file replacing the following with your unique spotify + twitter keys:
 
     ```

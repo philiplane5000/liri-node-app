@@ -1,1 +1,83 @@
 // LOG //
+undefined
+SORRY, UNABLE TO PROCESS: 'undefined'
+do-what-it-says
+./random.txt:
+COMMAND: spotify-this-song
+INPUT: Inspector Norse
+SONG NAME:
+"Inspector Norse"
+ARTIST NAME:
+"Todd Terje" 
+ALBUM:
+"It's the Arps"
+PREVIEW LINK:
+"https://open.spotify.com/track/2pucDx5Wyz9uHCou4wntHa"
+my-tweets
+Coconut banana party at Todd's this upcoming two weeks from now.
+SHARED ON: Mon Jul 16 22:53:50 +0000 2018
+Cat-hair-jacket-cotton-sweater-pant-socks. Made in America.
+SHARED ON: Mon Jul 16 22:52:19 +0000 2018
+Momentarily, I will be post a series of tweets in order to fill up space for my LIRI app! Most likely a random stri… https://t.co/Zpzh9CKaJG
+SHARED ON: Mon Jul 16 22:46:41 +0000 2018
+Blue cliff bars taste sandy in the July heat! Summertime!
+SHARED ON: Mon Jul 16 22:47:25 +0000 2018
+spotify-this-song
+ARTIST NAME:
+"Todd Terje" 
+SONG NAME:
+"Inspector Norse"
+PREVIEW LINK:
+"https://open.spotify.com/track/2pucDx5Wyz9uHCou4wntHa"
+ALBUM:
+"It's the Arps"
+spotify-this-song
+All the small things
+ARTIST NAME:
+"blink-182" 
+SONG NAME:
+"All The Small Things"
+PREVIEW LINK:
+"https://open.spotify.com/track/7yCPwWs66K8Ba5lFuU2bcx"
+ALBUM:
+"Enema Of The State"
+movie-this
+love actually
+http://www.omdbapi.com/?apikey=trilogy&t=love actually
+RELEASE YEAR:
+2003
+TITLE:
+Love Actually
+RELEASED IN: (COUNTRY)
+UK, USA, France
+PLOT:
+Follows the lives of eight very different couples in dealing with their love lives in various loosely interrelated tales all set during a frantic month before Christmas in London, England.
+ROTTEN TOMATOES RATING:
+63%
+ACTORS:
+Bill Nighy, Gregor Fisher, Rory MacGregor, Colin Firth
+IMDB RATING:
+7.6
+LANGUAGE:
+English, Portuguese, French
+do-what-it-says
+Coconut banana party at Todd's this upcoming two weeks from now.
+SHARED ON: Mon Jul 16 22:53:50 +0000 2018
+Momentarily, I will be post a series of tweets in order to fill up space for my LIRI app! Most likely a random stri… https://t.co/Zpzh9CKaJG
+SHARED ON: Mon Jul 16 22:46:41 +0000 2018
+Cat-hair-jacket-cotton-sweater-pant-socks. Made in America.
+SHARED ON: Mon Jul 16 22:52:19 +0000 2018
+Blue cliff bars taste sandy in the July heat! Summertime!
+SHARED ON: Mon Jul 16 22:47:25 +0000 2018
+do-what-it-says
+./random.txt:
+COMMAND: spotify-this-song
+INPUT: I Want it that way
+ARTIST NAME:
+"Backstreet Boys" 
+SONG NAME:
+"I Want It That Way"
+ALBUM:
+"The Hits--Chapter One"
+PREVIEW LINK:
+"https://open.spotify.com/track/6e40mgJiCid5HRAGrbpGA6"
