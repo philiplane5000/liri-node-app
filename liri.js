@@ -14,16 +14,33 @@ let spotify = new Spotify(keys.spotify);
 let command = process.argv[2];
 let input = process.argv[3];
 
-//HARD-CODED (MAYBE LATER USE THE INQUIRER THING TO GATHER AND SET USER SCREEN NAME?)
+//PREVENT APPEND LOG OF 'UNDEFINED' IN THE CASE OF NO INPUT E.G. 'MY-TWEETS':
+(input === undefined) ? appendLog(command) : appendLog(command, input)
+
+//HARD-CODED (MAYBE LATER USE THE INQUIRER TO GATHER AND SET USER SCREEN NAME?)
 let twitterScreenName = 'MrPotat58309442';
 
 mainSwitch(command, input)
 
-// ALL FUNCTIONS: //
-// ************** //
+// ****ALL FUNCTIONS:**** //
+// ********************** //
 
-// MAIN SWITCH STATEMENT (SWITCH DETERMINED BY COMMAND + INPUT):    //
-// ************************* //
+//APPEND TO 'LOG.TXT' + CONSOLE.LOG(INPUTS):
+function appendLog(...inputs) {
+
+    for (input of inputs) {
+        //APPEND TO LOG:
+        fs.appendFile('./log.txt', '\n' + input, function (err) {
+            if (err) throw err;
+            // console.log('LOGGED');
+        })
+        //LOG TO CONSOLE:
+        console.log(input);
+
+    }
+}
+
+// MAIN SWITCH STATEMENT: (SWITCH DETERMINED BY COMMAND + INPUT)
 function mainSwitch(command, input) {
 
     switch (command) {
@@ -45,34 +62,21 @@ function mainSwitch(command, input) {
 
 }
 
-
-// SANDBOX:
-// *********** //
-
-
-
-
-// ALL FUNCTIONS: //
-// ************** //
-
-//TWITTER FUNCTIONS:
+//TWITTER GET & TWITTERLOG-CALLBACK:
 function twitterGet(screenName, callback) {
 
     client.get('statuses/user_timeline', { screen_name: screenName }, callback);
 }
 
-function twitterLog(error, tweets, response) {
+function twitterLog(err, tweets, res) {
 
-    if (!error) {
+    if (!err) {
         tweets.forEach(function (tweet) {
-            console.log('******************');
-            console.log(tweet.text);
-            console.log(` ^ SHARED ON: ${tweet.created_at}`);
-            console.log('******************');
+            appendLog(`${tweet.text}\nSHARED ON: ${tweet.created_at}`);
         })
 
     } else {
-        throw error
+        throw err
     }
 
 }
@@ -84,10 +88,10 @@ function spotifyThis(trackName) {
         if (err) {
             return console.log('Error occurred: ' + err);
         }
-        console.log(`ARTIST NAME:\n"${data.tracks.items[0].artists[0].name}" `);
-        console.log(`SONG NAME:\n"${data.tracks.items[0].name}"`);
-        console.log(`ALBUM:\n"${data.tracks.items[0].album.name}"`);
-        console.log(`PREVIEW LINK:\n"${data.tracks.items[0].external_urls.spotify}"`)
+        appendLog(`ARTIST NAME:\n"${data.tracks.items[0].artists[0].name}" `);
+        appendLog(`SONG NAME:\n"${data.tracks.items[0].name}"`);
+        appendLog(`ALBUM:\n"${data.tracks.items[0].album.name}"`);
+        appendLog(`PREVIEW LINK:\n"${data.tracks.items[0].external_urls.spotify}"`)
 
     });
 }
@@ -97,31 +101,31 @@ function requestMovieTitle(movieTitle) {
 
     let baseURL = 'http://www.omdbapi.com/?apikey=trilogy&t='
     let queryURL = baseURL.concat(movieTitle);
-    console.log(queryURL);
+    appendLog(queryURL);
 
     //REQUEST QUERY USING QUERYURL:
-    request(queryURL, function (error, response, body) {
+    request(queryURL, function (err, res, body) {
 
         //NEED TO INCLUDE HERE OR ABOVE, 'MR.NOBODY' AS SEARCH PARAM IF USER DOESN'T SUPPLY MOVIE NAME(!) i.e. NO INPUT or INPUT = undefined
 
-        if (!(error)) {
+        if (!(err)) {
             if (body.includes('Movie not found!')) {
-                console.log('MOVIE NOT FOUND, PLEASE TRY ANOTHER TITLE');
+                appendLog('MOVIE NOT FOUND, PLEASE TRY ANOTHER TITLE');
                 return;
             }
             let data = JSON.parse(body);
-            // console.log(data)
-            console.log(`TITLE:\n${data.Title}`);
-            console.log(`RELEASE YEAR:\n${data.Year}`);
-            console.log(`IMDB RATING:\n${data.imdbRating}`);
-            console.log(`ROTTEN TOMATOES RATING:\n${data.Ratings[1].Value}`)
-            console.log(`RELEASED IN: (COUNTRY)\n${data.Country}`)
-            console.log(`LANGUAGE:\n${data.Language}`)
-            console.log(`PLOT:\n${data.Plot}`)
-            console.log(`ACTORS:\n${data.Actors}`)
+            // appendLog(data)
+            appendLog(`TITLE:\n${data.Title}`);
+            appendLog(`RELEASE YEAR:\n${data.Year}`);
+            appendLog(`IMDB RATING:\n${data.imdbRating}`);
+            appendLog(`ROTTEN TOMATOES RATING:\n${data.Ratings[1].Value}`)
+            appendLog(`RELEASED IN: (COUNTRY)\n${data.Country}`)
+            appendLog(`LANGUAGE:\n${data.Language}`)
+            appendLog(`PLOT:\n${data.Plot}`)
+            appendLog(`ACTORS:\n${data.Actors}`)
             return
         }
-        console.log(error)
+        appendLog(err)
     });
 }
 
@@ -140,9 +144,9 @@ function doWhatItSays(fileName) {
                 let sliceOne = dataArr[1].trim().slice(2);
                 let sliceTwo = sliceOne.slice(0, sliceOne.length - 3);
                 let inputAlt = sliceTwo;
-                console.log(`${fileName}:`)
-                console.log(`COMMAND: ${commandAlt}`);
-                console.log(`INPUT: ${inputAlt}`);
+                appendLog(`${fileName}:`)
+                appendLog(`COMMAND: ${commandAlt}`);
+                appendLog(`INPUT: ${inputAlt}`);
 
                 mainSwitch(commandAlt, inputAlt);
                 return
