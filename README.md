@@ -20,15 +20,18 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
     TWITTER_ACCESS_TOKEN_SECRET=paste-here
 
     ```
-* `RUN` any of the following commands:
+* `RUN` file `main.js` in your terminal/bash window ( `node main.js` )
+* `USE` keyboard `ARROW KEYS` and press `ENTER` to submit a command for LIRI from the following list of options:
 
-1. `node main.js my-tweets`
+##### (a) `get-tweets`
 
-   * This will show your last 20 tweets and when they were created in your terminal/bash window.
+   * This will show the last 20 tweets and when they were created in your terminal/bash window.
 
-2. `node main.js spotify-this-song '<song name here>'`
+##### (b) `spotify-this-song`
 
-   * This will show the following information about the song in your terminal/bash window
+   * LIRI will then prompt you to enter a song name.
+
+   * LIRI will display the following information about the song in your terminal/bash window
      
      * Artist(s)
      
@@ -38,9 +41,9 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
      
      * The album that the song is from
 
-   * If no song is provided then your program will default to "Inspector Norse" by Todd Terje.
+   * If no song is provided then your program will default to "Amish Paradise"
 
-3. `node main.js movie-this '<movie name here>'`
+##### (c) `movie-this`
 
    * This will output the following information to your terminal/bash window:
 
@@ -54,6 +57,10 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
        * Plot of the movie.
        * Actors in the movie.
      ```
-4. `node main.js do-what-it-says`
 
-* Using the `fs` Node package, LIRI will take the text inside of local file `random.txt` using it's contents to call one of LIRI's commands.
+  * If you do not provide a movie name, LIRI will default to "Mr.Nobody"
+
+##### (d) `do-what-it-says`
+
+* Using the `fs` Node package, LIRI will take the text inside of local file `random.txt` to call one of LIRI's commands according to the file content.
+
