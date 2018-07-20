@@ -4,7 +4,7 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
 ## HOW-T0:
 * `CLONE` this repository to your local machine
 * `RUN` 'npm install' in your `CLI` to install packages
-* `WRITE` an .env file replacing the following with your unique spotify + twitter keys:
+* `WRITE` an `.env` file replacing the following with your unique spotify + twitter keys:
 
     ```
     # Spotify API keys
