@@ -29,7 +29,7 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
    
      * LIRI will display the previous 20 tweets from that account as well as the timestamp for each.
 
-   * If no screen name is provided, LIRI will default to @AlYankovic ...
+   * If no screen name is provided, LIRI will default to `@AlYankovic` ...
 
 ##### (b) `'spotify-this-song'`
 
@@ -45,7 +45,7 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
      
      * The album that the song is from
 
-   * If no song is provided then your program will default to "Amish Paradise"
+   * If no song is provided then your program will default to `"Amish Paradise"`
 
 ##### (c) `'movie-this'`
 
@@ -64,7 +64,7 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
        * Actors in the movie.
      ```
 
-  * If you do not provide a movie name, LIRI will default to "Mr.Nobody"
+  * If you do not provide a movie name, LIRI will default to `"Mr.Nobody"`
 
 ##### (d) `'do-what-it-says'`
 
