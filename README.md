@@ -47,7 +47,9 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
 
 ##### (c) `movie-this`
 
-   * This will output the following information to your terminal/bash window:
+   * LIRI will prompt you to enter a movie title.
+
+   * LIRI will output the following information to your terminal/bash window:
 
      ```
        * Title of the movie.
