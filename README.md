@@ -23,13 +23,13 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
 * `RUN` file `main.js` in your terminal/bash window ( `node main.js` )
 * `USE` keyboard `ARROW KEYS` and press `ENTER` to submit a command for LIRI from the following list of options:
 
-##### (a) `get-tweets`
+##### (a) `'get-tweets'`
 
    * LIRI will prompt you to enter a twitter screen name.
    
      * LIRI will display the previous 20 tweets from that account as well as the timestamp for each.
 
-##### (b) `spotify-this-song`
+##### (b) `'spotify-this-song'`
 
    * LIRI will prompt you to enter a song name.
 
@@ -45,7 +45,7 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
 
    * If no song is provided then your program will default to "Amish Paradise"
 
-##### (c) `movie-this`
+##### (c) `'movie-this'`
 
    * LIRI will prompt you to enter a movie title.
 
@@ -64,7 +64,7 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
 
   * If you do not provide a movie name, LIRI will default to "Mr.Nobody"
 
-##### (d) `do-what-it-says`
+##### (d) `'do-what-it-says'`
 
 * Using the `fs` Node package, LIRI will take the text inside of local file `random.txt` to call one of LIRI's commands according to the file content.
 
