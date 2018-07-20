@@ -21,13 +21,15 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
 
     ```
 * `RUN` file `main.js` in your terminal/bash window ( `node main.js` )
-* `USE` keyboard `ARROW KEYS` and press `ENTER` to submit a command for LIRI from the following list of options:
+* `LIRI` will then prompt four commands to choose from. Use `ARROW KEYS` and press `ENTER` to select one of the following:
 
 ##### (a) `'get-tweets'`
 
    * LIRI will prompt you to enter a twitter screen name.
    
      * LIRI will display the previous 20 tweets from that account as well as the timestamp for each.
+
+   * If no screen name is provided, LIRI will default to @AlYankovic ...
 
 ##### (b) `'spotify-this-song'`
 
