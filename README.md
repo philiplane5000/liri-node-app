@@ -25,11 +25,13 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
 
 ##### (a) `get-tweets`
 
-   * LIRI will will prompt you to enter a twitter screen name and then display the last 20 tweets as well as when they were created in your terminal/bash window.
+   * LIRI will prompt you to enter a twitter screen name.
+   
+     * LIRI will display the previous 20 tweets from that account as well as the timestamp for each.
 
 ##### (b) `spotify-this-song`
 
-   * LIRI will then prompt you to enter a song name.
+   * LIRI will prompt you to enter a song name.
 
    * LIRI will then display the following information about the song in your terminal/bash window
      
