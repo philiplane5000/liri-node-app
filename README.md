@@ -3,8 +3,8 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
 
 ## HOW-T0:
 * `CLONE` or `DOWNLOAD ZIP` of this repository to your local machine
-* `UNZIP` the folder (if applicable) Then run your terminal/bash in the root of the folder
-* `RUN` 'npm install' in your `CLI` to install packages
+* `UNZIP` the folder (if applicable) --> run your terminal/bash in the root of the folder
+* `RUN` command `'npm install'` in your terminal/bash to install packages
 * `WRITE` an `.env` file replacing the following with your unique spotify + twitter keys:
 
     ```
